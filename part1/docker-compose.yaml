@@ -1,22 +1,6 @@
 version: "3"
 
-networks:
-  netA:
-    driver: default
-    ipam: 
-      config:
-        - subnet: 10.0.10.0/16
-          gateway: 10.0.11.3
-
-  netB:
-    driver: default
-    ipam:
-      config:
-        - subnet: 10.0.11.0/16
-          gateway: 10.0.10.3
-
 services:
-
   ha:
     build: .
     stdin_open: true
@@ -52,3 +36,20 @@ services:
       netB:
         ipv4_address: 10.0.11.3
     
+
+
+networks:
+  netA:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.10.0/24
+
+
+  netB:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.11.0/24
+
+
