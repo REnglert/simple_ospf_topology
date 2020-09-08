@@ -1,5 +1,18 @@
 version: "3"
 
+networks:
+  netA:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.10.0/24
+
+  netB:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.11.0/24
+
 services:
   ha:
     build: .
@@ -36,20 +49,3 @@ services:
       netB:
         ipv4_address: 10.0.11.3
     
-
-
-networks:
-  netA:
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.0.10.0/24
-
-
-  netB:
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.0.11.0/24
-
-
