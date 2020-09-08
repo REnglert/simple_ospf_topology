@@ -1,0 +1,52 @@
+version: "3"
+
+networks:
+  netA:
+    driver: default
+    config:
+      - subnet: 10.0.10.0/16
+        gateway: 10.0.11.3
+
+  netB:
+    driver: default
+    config:
+      - subnet: 10.0.11.0/16
+        gateway: 10.0.10.3
+
+services:
+
+  ha:
+    build: .
+    stdin-open: true
+    tty: true
+    cap_add:
+      - ALL
+    privilaged: true
+    networks:
+      netA:
+        ipv4_address: 10.0.10.10   
+
+  hb:
+    build: .
+    stdin-open: true
+    tty: true
+    cap_add:
+      - ALL
+    privilaged: true
+    networks:
+      netB:
+        ipv4_address: 10.0.11.11    
+
+  r1:
+    build: .
+    stdin-open: true
+    tty: true
+    cap_add:
+      - ALL
+    privilaged: true
+    networks:
+      netA:
+        ipv4_address: 10.0.10.3
+      netB:
+        ipv4_address: 10.0.11.3
+    
