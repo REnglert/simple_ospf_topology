@@ -19,7 +19,7 @@ services:
 
   ha:
     build: .
-    stdin-open: true
+    stdin_open: true
     tty: true
     cap_add:
       - ALL
@@ -30,7 +30,7 @@ services:
 
   hb:
     build: .
-    stdin-open: true
+    stdin_open: true
     tty: true
     cap_add:
       - ALL
@@ -41,7 +41,7 @@ services:
 
   r1:
     build: .
-    stdin-open: true
+    stdin_open: true
     tty: true
     cap_add:
       - ALL
