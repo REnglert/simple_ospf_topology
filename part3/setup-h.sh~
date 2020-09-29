@@ -1,2 +1,0 @@
-rm etc/sysctl.conf
-mv sysctl.conf etc/
