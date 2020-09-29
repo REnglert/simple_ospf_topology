@@ -1,0 +1,8 @@
+FROM ubuntu
+
+COPY . files
+
+RUN cp /files/setup-h.sh setup-h.sh
+RUN ./setup-h.sh
+
+CMD ["bash"]
