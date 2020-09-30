@@ -41,7 +41,7 @@ services:
   ha:
     build:
       context: .
-      dockerfile: Dockerfile-h
+      dockerfile: Dockerfile-ha
     stdin_open: true
     tty: true
     cap_add:
@@ -54,7 +54,7 @@ services:
   hb:
     build:
       context: .
-      dockerfile: Dockerfile-h
+      dockerfile: Dockerfile-hb
     stdin_open: true
     tty: true
     cap_add:

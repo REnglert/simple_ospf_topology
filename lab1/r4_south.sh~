@@ -1,0 +1,4 @@
+service zebra stop
+service ospfd stop
+rm /etc/quagga/ospfd.conf
+cp /files/

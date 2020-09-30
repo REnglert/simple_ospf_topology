@@ -1,0 +1,25 @@
+FROM ubuntu
+
+COPY daemon /files/
+COPY zebra_r4.conf /files/
+COPY ospfd_r4_same.conf /files/
+COPY ospfd_r4_heavy.conf /files/
+COPY ospfd_r4_light.conf /files/
+COPY r4_north.sh /files/
+COPY r4_south.sh /files/
+
+RUN mv /files/r4_north.sh r4_north.sh
+RUN mv /files/r4_south.sh r4_south.sh
+
+RUN export DEBIAN_FRONTEND=noninteractive
+RUN apt-get -qq -y update > null
+RUN apt-get -qq -y clean > null
+RUN apt-get -qq -y install quagga > null
+
+RUN cp /files/daemon etc/quagga/daemon
+RUN cp /files/zebra_r4.conf etc/quagga/zebra.conf
+RUN cp /files/ospfd_r4_same.conf etc/quagga/ospfd.conf
+
+RUN echo "net.ipv4.ip_forward=1" >> etc/sysctl.conf
+
+CMD ["bash"]

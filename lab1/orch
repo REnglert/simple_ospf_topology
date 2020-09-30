@@ -1,0 +1,78 @@
+
+LIST="abc"
+COMMAND="abc"
+
+for arg in "$@"
+do
+    case $arg in
+    # HELP 
+        -h|-help)
+	echo "-h included"
+	shift
+        ;;
+    # UP containers
+        -u | -up)
+	LIST="$2"
+#	echo "$LIST"
+	docker-compose up -d --build --force-recreate --quiet-pull $LIST
+	shift
+	shift
+	;;
+    # STOP contianer
+	-s | -stop)
+	LIST="$2"
+	docker-compose stop $LIST
+	shift
+	shift
+	;;
+    # START OSPFD ROUTES
+	-r | -routes)
+	LIST="$2"
+	IFS=', ' read -r -a array <<< "$LIST"
+	for element in "${array[@]}"
+	do
+	    echo "$element"
+	    COMMAND="lab1_"
+	    COMMAND+="$element"
+	    COMMAND+="_1"
+	    docker exec $COMMAND service zebra start
+	    docker exec	$COMMAND service ospfd start
+	done
+	shift
+	shift
+	;;
+    # SETUP ROUTES ON ENDPOINTS
+	-e | -endpoint)
+	if [[ "$2" == "ha" ]]
+	then
+	    echo "Placing gateway from ha" 
+	    docker exec lab1_ha_1 bash ha_add_gw.sh
+	elif [[ "$2" == "hb" ]]
+	then
+	    echo "Placing gateway from hb" 	
+	    docker exec lab1_hb_1 bash hb_add_gw.sh
+	else
+	    echo "$2 not recognized"
+	fi
+	shift
+	shift
+	;;
+    # MOVE PATH WEIGHTS
+        -m | -move)
+	if [[ "$2" == "south" ]]
+	then
+	    echo "Prioritizing south path" 
+	elif [[ "$2" == "north" ]]
+	then
+	    echo "Prioritizing north path"
+	else
+	    echo "$2 not recognized"
+	fi
+	;;
+    # KILL WITH DOCKER-COMPOSE
+	-k | -kill)
+	docker-compose down
+	shift
+	;;
+    esac
+done

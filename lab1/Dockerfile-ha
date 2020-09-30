@@ -1,0 +1,14 @@
+FROM ubuntu
+
+COPY ha_add_gw.sh /files/
+RUN cp files/ha_add_gw.sh ha_add_gw.sh
+
+RUN export DEBIAN_FRONTEND=noninteractive
+RUN apt-get -qq -y update > null
+RUN apt-get -qq -y clean > null
+RUN apt-get -qq -y install bash iproute2 net-tools tcpdump vim iputils-ping > null
+RUN apt-get -qq -y install traceroute > null
+
+RUN echo "net.ipv4.ip_forward=1" >> etc/sysctl.conf
+
+CMD ["bash"]

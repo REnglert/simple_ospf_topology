@@ -1,9 +1,0 @@
-FROM ubuntu
-
-RUN export DEBIAN_FRONTEND=noninteractive
-RUN apt-get -qq -y update > null
-RUN apt-get -qq -y clean > null
-
-RUN echo "net.ipv4.ip_forward=1" >> etc/sysctl.conf
-
-CMD ["bash"]
