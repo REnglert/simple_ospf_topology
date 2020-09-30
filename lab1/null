@@ -1,0 +1,258 @@
+Step 1/10 : FROM ubuntu
+ ---> 4e2eef94cd6b
+Step 2/10 : COPY ha_add_gw.sh /files/
+ ---> Using cache
+ ---> 1694bfc50403
+Step 3/10 : RUN cp files/ha_add_gw.sh ha_add_gw.sh
+ ---> Using cache
+ ---> 5e6332150b72
+Step 4/10 : RUN export DEBIAN_FRONTEND=noninteractive
+ ---> Using cache
+ ---> 4886fd28c78b
+Step 5/10 : RUN apt-get -qq -y update > null
+ ---> Using cache
+ ---> 6e8b915c8f31
+Step 6/10 : RUN apt-get -qq -y clean > null
+ ---> Using cache
+ ---> 45a295f4def3
+Step 7/10 : RUN apt-get -qq -y install bash iproute2 net-tools tcpdump vim iputils-ping > null
+ ---> Using cache
+ ---> 0eafa586018f
+Step 8/10 : RUN apt-get -qq -y install traceroute > null
+ ---> Using cache
+ ---> 9267d7b502ae
+Step 9/10 : RUN echo "net.ipv4.ip_forward=1" >> etc/sysctl.conf
+ ---> Using cache
+ ---> 57c8858c8eb6
+Step 10/10 : CMD ["bash"]
+ ---> Using cache
+ ---> fd64ffdef45c
+Successfully built fd64ffdef45c
+Successfully tagged lab1_ha:latest
+Step 1/10 : FROM ubuntu
+ ---> 4e2eef94cd6b
+Step 2/10 : COPY hb_add_gw.sh /files/
+ ---> Using cache
+ ---> 4dd6bdb97a4f
+Step 3/10 : RUN cp files/hb_add_gw.sh hb_add_gw.sh
+ ---> Using cache
+ ---> b583c322a1f6
+Step 4/10 : RUN export DEBIAN_FRONTEND=noninteractive
+ ---> Using cache
+ ---> 831d12310555
+Step 5/10 : RUN apt-get -qq -y update > null
+ ---> Using cache
+ ---> bea070b65d31
+Step 6/10 : RUN apt-get -qq -y clean > null
+ ---> Using cache
+ ---> a634b29aebef
+Step 7/10 : RUN apt-get -qq -y install bash iproute2 net-tools tcpdump vim iputils-ping > null
+ ---> Using cache
+ ---> 300c161d0315
+Step 8/10 : RUN apt-get -qq	-y install traceroute >	null
+ ---> Using cache
+ ---> d4f157cb1d57
+Step 9/10 : RUN echo "net.ipv4.ip_forward=1" >> etc/sysctl.conf
+ ---> Using cache
+ ---> 8279534b7779
+Step 10/10 : CMD ["bash"]
+ ---> Using cache
+ ---> ebeaee97df5c
+Successfully built ebeaee97df5c
+Successfully tagged lab1_hb:latest
+Step 1/13 : FROM ubuntu
+ ---> 4e2eef94cd6b
+Step 2/13 : COPY daemon /files/
+ ---> Using cache
+ ---> 30689f196b15
+Step 3/13 : COPY zebra_r1.conf /files/
+ ---> Using cache
+ ---> efc3ffaa340c
+Step 4/13 : COPY ospfd_r1.conf /files/
+ ---> Using cache
+ ---> 8a649cd5aa9f
+Step 5/13 : RUN export DEBIAN_FRONTEND=noninteractive
+ ---> Using cache
+ ---> 29d57a83b64a
+Step 6/13 : RUN apt-get -qq -y update > null
+ ---> Using cache
+ ---> d2140ea6f6ab
+Step 7/13 : RUN apt-get -qq -y clean > null
+ ---> Using cache
+ ---> e1c09a66324d
+Step 8/13 : RUN apt-get -qq -y install quagga > null
+ ---> Using cache
+ ---> fc512f9598af
+Step 9/13 : RUN cp /files/daemon etc/quagga/daemon
+ ---> Using cache
+ ---> c308f9df6f50
+Step 10/13 : RUN cp /files/zebra_r1.conf etc/quagga/zebra.conf
+ ---> Using cache
+ ---> e23f2434e691
+Step 11/13 : RUN cp /files/ospfd_r1.conf etc/quagga/ospfd.conf
+ ---> Using cache
+ ---> c24518cd0738
+Step 12/13 : RUN echo "net.ipv4.ip_forward=1" >> etc/sysctl.conf
+ ---> Using cache
+ ---> 73190e494af4
+Step 13/13 : CMD ["bash"]
+ ---> Using cache
+ ---> 09b3e87c5def
+Successfully built 09b3e87c5def
+Successfully tagged lab1_r1:latest
+Step 1/13 : FROM ubuntu
+ ---> 4e2eef94cd6b
+Step 2/13 : COPY daemon /files/
+ ---> Using cache
+ ---> 30689f196b15
+Step 3/13 : COPY zebra_r3.conf /files/
+ ---> Using cache
+ ---> 6a965532a535
+Step 4/13 : COPY ospfd_r3.conf /files/
+ ---> Using cache
+ ---> 14f604499032
+Step 5/13 : RUN export DEBIAN_FRONTEND=noninteractive
+ ---> Using cache
+ ---> bef5141498df
+Step 6/13 : RUN apt-get -qq -y update > null
+ ---> Using cache
+ ---> fee782caf8f1
+Step 7/13 : RUN apt-get -qq -y clean > null
+ ---> Using cache
+ ---> 362c1146939f
+Step 8/13 : RUN apt-get -qq -y install quagga > null
+ ---> Using cache
+ ---> 60886fb4c0cb
+Step 9/13 : RUN cp /files/daemon etc/quagga/daemon
+ ---> Using cache
+ ---> d7b20717ab79
+Step 10/13 : RUN cp /files/zebra_r3.conf etc/quagga/zebra.conf
+ ---> Using cache
+ ---> 84649ed230fc
+Step 11/13 : RUN cp /files/ospfd_r3.conf etc/quagga/ospfd.conf
+ ---> Using cache
+ ---> 53cfb8a06d1b
+Step 12/13 : RUN echo "net.ipv4.ip_forward=1" >> etc/sysctl.conf
+ ---> Using cache
+ ---> 54dadfbde496
+Step 13/13 : CMD ["bash"]
+ ---> Using cache
+ ---> 9988b3edef90
+Successfully built 9988b3edef90
+Successfully tagged lab1_r3:latest
+Step 1/19 : FROM ubuntu
+ ---> 4e2eef94cd6b
+Step 2/19 : COPY daemon /files/
+ ---> Using cache
+ ---> 30689f196b15
+Step 3/19 : COPY zebra_r2.conf /files/
+ ---> Using cache
+ ---> 934ab9215432
+Step 4/19 : COPY ospfd_r2_same.conf /files/
+ ---> Using cache
+ ---> 8cc5ac5f4d8d
+Step 5/19 : COPY ospfd_r2_light.conf /files/
+ ---> Using cache
+ ---> 1e1a4e1d7cb1
+Step 6/19 : COPY ospfd_r2_heavy.conf /files/
+ ---> Using cache
+ ---> 4ca4478fbc76
+Step 7/19 : COPY r2_north.sh /files/
+ ---> Using cache
+ ---> 97f68faca215
+Step 8/19 : COPY r2_south.sh /files/
+ ---> Using cache
+ ---> 3acc864f6eec
+Step 9/19 : RUN mv /files/r2_north.sh r2_north.sh
+ ---> Using cache
+ ---> 162f415c1146
+Step 10/19 : RUN mv /files/r2_south.sh r2_south.sh
+ ---> Using cache
+ ---> 93d355cccacc
+Step 11/19 : RUN export DEBIAN_FRONTEND=noninteractive
+ ---> Using cache
+ ---> 7e1dbd76cffb
+Step 12/19 : RUN apt-get -qq -y update > null
+ ---> Using cache
+ ---> 9cba2f3dec22
+Step 13/19 : RUN apt-get -qq -y clean > null
+ ---> Using cache
+ ---> 662b5614538c
+Step 14/19 : RUN apt-get -qq -y install quagga > null
+ ---> Using cache
+ ---> 94502c8f1df4
+Step 15/19 : RUN cp /files/daemon etc/quagga/daemon
+ ---> Using cache
+ ---> 3f0b4c1db0de
+Step 16/19 : RUN cp /files/zebra_r2.conf etc/quagga/zebra.conf
+ ---> Using cache
+ ---> 203b7812276a
+Step 17/19 : RUN cp /files/ospfd_r2_same.conf etc/quagga/ospfd.conf
+ ---> Using cache
+ ---> aa124c20d59d
+Step 18/19 : RUN echo "net.ipv4.ip_forward=1" >> etc/sysctl.conf
+ ---> Using cache
+ ---> 4f923c3effae
+Step 19/19 : CMD ["bash"]
+ ---> Using cache
+ ---> edcd37834eea
+Successfully built edcd37834eea
+Successfully tagged lab1_r2:latest
+Step 1/19 : FROM ubuntu
+ ---> 4e2eef94cd6b
+Step 2/19 : COPY daemon /files/
+ ---> Using cache
+ ---> 30689f196b15
+Step 3/19 : COPY zebra_r4.conf /files/
+ ---> Using cache
+ ---> 694ab3662708
+Step 4/19 : COPY ospfd_r4_same.conf /files/
+ ---> Using cache
+ ---> e8364ca39f25
+Step 5/19 : COPY ospfd_r4_heavy.conf /files/
+ ---> Using cache
+ ---> 1c2a48604329
+Step 6/19 : COPY ospfd_r4_light.conf /files/
+ ---> Using cache
+ ---> 73bfc7ac89d5
+Step 7/19 : COPY r4_north.sh /files/
+ ---> Using cache
+ ---> d1fbbdd19428
+Step 8/19 : COPY r4_south.sh /files/
+ ---> Using cache
+ ---> be238d48c126
+Step 9/19 : RUN mv /files/r4_north.sh r4_north.sh
+ ---> Using cache
+ ---> 71b9c1792bd4
+Step 10/19 : RUN mv /files/r4_south.sh r4_south.sh
+ ---> Using cache
+ ---> f3646ef6cd61
+Step 11/19 : RUN export DEBIAN_FRONTEND=noninteractive
+ ---> Using cache
+ ---> d0f97d971221
+Step 12/19 : RUN apt-get -qq -y update > null
+ ---> Using cache
+ ---> 4635c94d8cc4
+Step 13/19 : RUN apt-get -qq -y clean > null
+ ---> Using cache
+ ---> 46b54fa564c2
+Step 14/19 : RUN apt-get -qq -y install quagga > null
+ ---> Using cache
+ ---> 6c486523a38d
+Step 15/19 : RUN cp /files/daemon etc/quagga/daemon
+ ---> Using cache
+ ---> 0c40d19675de
+Step 16/19 : RUN cp /files/zebra_r4.conf etc/quagga/zebra.conf
+ ---> Using cache
+ ---> 3cd9f6359fe7
+Step 17/19 : RUN cp /files/ospfd_r4_same.conf etc/quagga/ospfd.conf
+ ---> Using cache
+ ---> ffec2ef53176
+Step 18/19 : RUN echo "net.ipv4.ip_forward=1" >> etc/sysctl.conf
+ ---> Using cache
+ ---> 47b9c10d7844
+Step 19/19 : CMD ["bash"]
+ ---> Using cache
+ ---> af3267ff9a33
+Successfully built af3267ff9a33
+Successfully tagged lab1_r4:latest

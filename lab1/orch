@@ -2,19 +2,40 @@
 LIST="abc"
 COMMAND="abc"
 
+if [[ $# -eq 0 ]] ; then
+    echo 'Include -h or -help to see list of options'
+    exit 0
+fi
+
+
 for arg in "$@"
 do
     case $arg in
     # HELP 
         -h|-help)
-	echo "-h included"
+	cat help_page.txt
 	shift
         ;;
+    # START ALL
+	-start-all)
+	docker-compose up -d --build --force-recreate --quiet-pull > null
+	docker exec lab1_r1_1 service zebra start
+	docker exec lab1_r1_1 service ospfd start
+	docker exec lab1_r2_1 service zebra start
+        docker exec lab1_r2_1 service ospfd start
+	docker exec lab1_r3_1 service zebra start
+        docker exec lab1_r3_1 service ospfd start
+	docker exec lab1_r4_1 service zebra start
+        docker exec lab1_r4_1 service ospfd start
+	docker exec lab1_ha_1 bash ha_add_gw.sh
+	docker exec lab1_hb_1 bash hb_add_gw.sh
+	shift
+	;;
     # UP containers
         -u | -up)
 	LIST="$2"
 #	echo "$LIST"
-	docker-compose up -d --build --force-recreate --quiet-pull $LIST
+	docker-compose up -d --build --force-recreate --quiet-pull $LIST > null
 	shift
 	shift
 	;;
@@ -61,10 +82,14 @@ do
         -m | -move)
 	if [[ "$2" == "south" ]]
 	then
-	    echo "Prioritizing south path" 
+	    echo "Prioritizing south path"
+            docker exec lab1_r2_1 bash r2_south.sh
+	    docker exec lab1_r4_1 bash r4_south.sh
 	elif [[ "$2" == "north" ]]
 	then
 	    echo "Prioritizing north path"
+	    docker exec lab1_r2_1 bash r2_north.sh
+            docker exec	lab1_r4_1 bash r4_north.sh
 	else
 	    echo "$2 not recognized"
 	fi
