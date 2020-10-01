@@ -83,13 +83,13 @@ do
 	if [[ "$2" == "south" ]]
 	then
 	    echo "Prioritizing south path"
-            docker exec lab1_r2_1 bash r2_south.sh
-	    docker exec lab1_r4_1 bash r4_south.sh
+            docker exec lab1_r2_1 vtysh -c 'configure terminal' -c 'router ospf' -c 'interface eth0' -c 'ip ospf cost 500’
+	    docker exec lab1_r4_1 vtysh -c 'configure terminal' -c 'router ospf' -c 'interface eth0' -c 'ip ospf cost 1’
 	elif [[ "$2" == "north" ]]
 	then
 	    echo "Prioritizing north path"
-	    docker exec lab1_r2_1 bash r2_north.sh
-            docker exec	lab1_r4_1 bash r4_north.sh
+	    docker exec lab1_r2_1 vtysh -c 'configure terminal' -c 'router ospf' -c 'interface eth0' -c 'ip ospf cost 1’
+            docker exec	lab1_r4_1 vtysh -c 'configure terminal' -c 'router ospf' -c 'interface eth0' -c 'ip ospf cost 500’
 	else
 	    echo "$2 not recognized"
 	fi
