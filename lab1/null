@@ -1,46 +1,46 @@
 Step 1/15 : FROM ubuntu
- ---> 4e2eef94cd6b
+ ---> 9140108b62dc
 Step 2/15 : COPY daemon /files/
  ---> Using cache
- ---> 30689f196b15
-Step 3/15 : COPY zebra_r2.conf /files/
+ ---> b87cf568c729
+Step 3/15 : COPY zebra.conf /files/
  ---> Using cache
- ---> a19e566d70a1
+ ---> f225d2b3dcb0
 Step 4/15 : COPY ospfd_r2.conf /files/
  ---> Using cache
- ---> 16b5c631d66b
+ ---> ef37515e2330
 Step 5/15 : RUN export DEBIAN_FRONTEND=noninteractive
  ---> Using cache
- ---> 2f6363efbd2c
+ ---> a4ba933567fd
 Step 6/15 : RUN apt-get -qq -y update > null
  ---> Using cache
- ---> 15a420abbab2
+ ---> 67546a293857
 Step 7/15 : RUN apt-get -qq -y clean > null
  ---> Using cache
- ---> 6616e8749417
+ ---> 163b47d14974
 Step 8/15 : RUN apt-get -qq -y install quagga > null
  ---> Using cache
- ---> 6e4280289f1e
+ ---> b8e16ff09dec
 Step 9/15 : RUN apt-get -qq -y install bash iproute2 net-tools tcpdump vim iputils-ping > null
  ---> Using cache
- ---> 05766e140009
+ ---> a766f4ecc952
 Step 10/15 : RUN apt-get -qq -y install traceroute > null
  ---> Using cache
- ---> a0bd1419e9c9
+ ---> 270d815d2f38
 Step 11/15 : RUN cp /files/daemon etc/quagga/daemon
  ---> Using cache
- ---> 9404d4687e90
-Step 12/15 : RUN cp /files/zebra_r2.conf etc/quagga/zebra.conf
+ ---> 19c927415358
+Step 12/15 : RUN cp /files/zebra.conf etc/quagga/zebra.conf
  ---> Using cache
- ---> 49fa369cb8a4
+ ---> 00dd4779e934
 Step 13/15 : RUN cp /files/ospfd_r2.conf etc/quagga/ospfd.conf
  ---> Using cache
- ---> fdc2d50df6fa
+ ---> a9fb9f1f600c
 Step 14/15 : RUN echo "net.ipv4.ip_forward=1" >> etc/sysctl.conf
  ---> Using cache
- ---> c38355c5ec8c
+ ---> 7c9947ab6b3d
 Step 15/15 : CMD ["bash"]
  ---> Using cache
- ---> c4135dbc6f8f
-Successfully built c4135dbc6f8f
+ ---> 7f30a26110d7
+Successfully built 7f30a26110d7
 Successfully tagged lab1_r2:latest

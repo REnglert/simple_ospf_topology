@@ -103,5 +103,10 @@ do
 	docker-compose down
 	shift
 	;;
+	-b)
+        docker exec lab1_r2_1 service zebra stop
+        docker exec lab1_r2_1 service ospfd stop
+	shift
+	;;
     esac
 done
