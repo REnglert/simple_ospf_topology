@@ -77,7 +77,9 @@ services:
       netA:
         ipv4_address: 10.0.10.3
       net1:
+        ipv4_address: 10.0.1.10
       net4:
+        ipv4_address: 10.0.4.10
       
   r3:
     build:
@@ -92,7 +94,9 @@ services:
       netB:
         ipv4_address: 10.0.11.3
       net2:
+        ipv4_address: 10.0.2.20
       net3:
+        ipv4_address: 10.0.3.20
 
   r2:
     build:
@@ -105,7 +109,9 @@ services:
     privileged: true
     networks:
       net1:
+        ipv4_address: 10.0.1.20
       net2:
+        ipv4_address: 10.0.2.10
 
   r4:
     build:
@@ -118,4 +124,6 @@ services:
     privileged: true
     networks:
       net3:
+        ipv4_address: 10.0.3.10
       net4:
+        ipv4_address: 10.0.4.20

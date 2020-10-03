@@ -8,6 +8,8 @@ RUN export DEBIAN_FRONTEND=noninteractive
 RUN apt-get -qq -y update > null
 RUN apt-get -qq -y clean > null
 RUN apt-get -qq -y install quagga > null
+RUN apt-get -qq -y install bash iproute2 net-tools tcpdump vim iputils-ping > null
+RUN apt-get -qq -y install traceroute > null
 
 RUN cp /files/daemon etc/quagga/daemon
 RUN cp /files/zebra_r2.conf etc/quagga/zebra.conf

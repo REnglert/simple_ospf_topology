@@ -1,40 +1,46 @@
-Step 1/13 : FROM ubuntu
+Step 1/15 : FROM ubuntu
  ---> 4e2eef94cd6b
-Step 2/13 : COPY daemon /files/
+Step 2/15 : COPY daemon /files/
  ---> Using cache
  ---> 30689f196b15
-Step 3/13 : COPY zebra_r2.conf /files/
+Step 3/15 : COPY zebra_r2.conf /files/
  ---> Using cache
- ---> 934ab9215432
-Step 4/13 : COPY ospfd_r2.conf /files/
+ ---> a19e566d70a1
+Step 4/15 : COPY ospfd_r2.conf /files/
  ---> Using cache
- ---> aa93b2bfa402
-Step 5/13 : RUN export DEBIAN_FRONTEND=noninteractive
+ ---> 16b5c631d66b
+Step 5/15 : RUN export DEBIAN_FRONTEND=noninteractive
  ---> Using cache
- ---> b41b8551019f
-Step 6/13 : RUN apt-get -qq -y update > null
+ ---> 2f6363efbd2c
+Step 6/15 : RUN apt-get -qq -y update > null
  ---> Using cache
- ---> d4b193e8c978
-Step 7/13 : RUN apt-get -qq -y clean > null
+ ---> 15a420abbab2
+Step 7/15 : RUN apt-get -qq -y clean > null
  ---> Using cache
- ---> bf25b4853ac9
-Step 8/13 : RUN apt-get -qq -y install quagga > null
+ ---> 6616e8749417
+Step 8/15 : RUN apt-get -qq -y install quagga > null
  ---> Using cache
- ---> 2d5ab523ece9
-Step 9/13 : RUN cp /files/daemon etc/quagga/daemon
+ ---> 6e4280289f1e
+Step 9/15 : RUN apt-get -qq -y install bash iproute2 net-tools tcpdump vim iputils-ping > null
  ---> Using cache
- ---> 383289cd7f51
-Step 10/13 : RUN cp /files/zebra_r2.conf etc/quagga/zebra.conf
+ ---> 05766e140009
+Step 10/15 : RUN apt-get -qq -y install traceroute > null
  ---> Using cache
- ---> a2a5289744d7
-Step 11/13 : RUN cp /files/ospfd_r2.conf etc/quagga/ospfd.conf
+ ---> a0bd1419e9c9
+Step 11/15 : RUN cp /files/daemon etc/quagga/daemon
  ---> Using cache
- ---> f79cf93c9029
-Step 12/13 : RUN echo "net.ipv4.ip_forward=1" >> etc/sysctl.conf
+ ---> 9404d4687e90
+Step 12/15 : RUN cp /files/zebra_r2.conf etc/quagga/zebra.conf
  ---> Using cache
- ---> 3b93282396a4
-Step 13/13 : CMD ["bash"]
+ ---> 49fa369cb8a4
+Step 13/15 : RUN cp /files/ospfd_r2.conf etc/quagga/ospfd.conf
  ---> Using cache
- ---> 59eadbb60e0d
-Successfully built 59eadbb60e0d
+ ---> fdc2d50df6fa
+Step 14/15 : RUN echo "net.ipv4.ip_forward=1" >> etc/sysctl.conf
+ ---> Using cache
+ ---> c38355c5ec8c
+Step 15/15 : CMD ["bash"]
+ ---> Using cache
+ ---> c4135dbc6f8f
+Successfully built c4135dbc6f8f
 Successfully tagged lab1_r2:latest
