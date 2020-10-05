@@ -2,21 +2,56 @@
 LIST="abc"
 COMMAND="abc"
 
+# If no flags promt for flags
 if [[ $# -eq 0 ]] ; then
     echo 'Include -h or -help to see list of options'
     exit 0
 fi
 
-
+# For each flag
 for arg in "$@"
 do
     case $arg in
-    # HELP 
+    # HELP: echo out helpful information
         -h|-help)
-	cat help_page.txt
+	echo 'Usage: ./orch -h|-help -start-all -u|-up <"list"> -s|-stop <"list"> -r|-routes <"list"> -e|-endpoint <ha|hb> -m|-move <north|south> -k|-kill'
+echo ' '
+        echo 'Examples: '
+        echo ' '
+        echo 'Get Help: '
+        echo './orch -h'
+        echo './orch -help '
+        echo ' '
+        echo 'Start All Six Containers, Start All OSPF Routs, Set Endpoint Routes: '
+        echo './orch -start-all'
+        echo ' '
+        echo 'Start Up Containers: '
+        echo 'Valid options: ha, hb, r1, r2, r3, r4'
+        echo './orch -u "ha hb r1 r2 r3" '
+        echo './orch -up "r4" '
+        echo './orch -up "ha hb r1 r2 r3 r4" '
+        echo ' '
+        echo 'Stop Containers: '
+        echo 'Valid options: ha, hb, r1, r2, r3, r4'
+        echo './orch -s "r2" '
+        echo './orch -stop "r4" '
+        echo ' '
+        echo 'Setup OSPF Routes on Containers: '
+        echo 'Valid options: r1, r2, r3, r4'
+        echo './orch -r "r1 r2 r3" '
+        echo './orch -routes "r4" '
+        echo ' '
+        echo 'Setup Routes on an Endpoint: '
+        echo './orch -e <ha|hb>'
+        echo ' '
+        echo 'Set Traffic Path: '
+        echo './orch -m <north|south> '
+        echo ' '
+        echo 'Kill All Docker Containers and Docker Networks: '
+        echo './orch -k '
 	shift
         ;;
-    # START ALL
+    # START ALL: Starts r1 r2 r3 r4 ha hb with OSPF up and gateways init
 	-start-all)
 	docker-compose up -d --build --force-recreate --quiet-pull > null
 	docker exec lab1_r1_1 service zebra start
@@ -31,7 +66,7 @@ do
 	docker exec lab1_hb_1 bash hb_add_gw.sh
 	shift
 	;;
-    # UP containers
+    # UP containers: Recieves list: Always rebuild in case image changed
         -u | -up)
 	LIST="$2"
 #	echo "$LIST"
@@ -49,20 +84,24 @@ do
     # START OSPFD ROUTES
 	-r | -routes)
 	LIST="$2"
+	# Put desired router in list 
 	IFS=', ' read -r -a array <<< "$LIST"
+	# For each router start OSPF
 	for element in "${array[@]}"
 	do
 	    echo "$element"
+	    # Build command
 	    COMMAND="lab1_"
 	    COMMAND+="$element"
 	    COMMAND+="_1"
+	    # exec command on specific docker image
 	    docker exec $COMMAND service zebra start
 	    docker exec	$COMMAND service ospfd start
 	done
 	shift
 	shift
 	;;
-    # SETUP ROUTES ON ENDPOINTS
+    # SETUP ROUTES ON ENDPOINTS: either a or b
 	-e | -endpoint)
 	if [[ "$2" == "ha" ]]
 	then
@@ -78,7 +117,7 @@ do
 	shift
 	shift
 	;;
-    # MOVE PATH WEIGHTS
+    # MOVE PATH WEIGHTS: either north or south
         -m | -move)
 	if [[ "$2" == "south" ]]
 	then
@@ -98,14 +137,9 @@ do
 	    echo "$2 not recognized"
 	fi
 	;;
-    # KILL WITH DOCKER-COMPOSE
+    # KILL WITH DOCKER-COMPOSE: End netowrks and any docker containers
 	-k | -kill)
 	docker-compose down
-	shift
-	;;
-	-b)
-        docker exec lab1_r2_1 service zebra stop
-        docker exec lab1_r2_1 service ospfd stop
 	shift
 	;;
     esac
